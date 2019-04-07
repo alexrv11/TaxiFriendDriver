@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.taxi.friend.drivers.register.RegisterWelcomeActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
         */
-        Intent intent = new Intent(this, TaxiDriverRegisterActivity.class);
+        Intent intent = new Intent(this, RegisterWelcomeActivity.class);
 
         startActivity(intent);
     }

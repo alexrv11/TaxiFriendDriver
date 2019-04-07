@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/registerColor2"
+    tools:context=".TaxiDriverRegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            android:text="Toma una foto"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="Del maletero de tu automovil."/>
+
+        <ImageView
+            android:id="@+id/imageCIFrontal"
+            android:src="@drawable/ic_round_directions_car"
+            android:background="#80000000"
+            android:layout_width="220dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="220dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <ImageButton
+                android:id="@+id/btnCamera"
+                android:text="Foto"
+                android:textColor="#fff"
+                android:background="@drawable/ic_round_photo_camera"
+                android:layout_marginRight="6dp"
+                android:layout_weight="0.4"
+                android:layout_width="40dp"
+                android:clickable="true"
+                android:layout_height="40dp" />
+
+            <ImageButton
+                android:id="@+id/btnGallery"
+                android:text="Galleria"
+                android:textColor="#fff"
+                android:background="@drawable/ic_round_photo"
+                android:layout_marginLeft="6dp"
+                android:clickable="true"
+                android:layout_weight="0.6"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/btnNext"
+            android:text="Siguiente"
+            android:textColor="#fff"
+            android:background="@color/btnSignIn"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

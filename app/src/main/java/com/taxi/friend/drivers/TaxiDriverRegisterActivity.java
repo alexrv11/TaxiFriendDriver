@@ -1,38 +1,14 @@
 package com.taxi.friend.drivers;
 
 import android.animation.ArgbEvaluator;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-
 
 import com.taxi.friend.drivers.adapters.ItemRegisterAdapter;
 import com.taxi.friend.drivers.models.ItemRegisterDriverModel;
-import com.taxi.friend.drivers.photo.AlbumStorageDirFactory;
-import com.taxi.friend.drivers.photo.BaseAlbumDirFactory;
-import com.taxi.friend.drivers.photo.FroyoAlbumDirFactory;
 
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TaxiDriverRegisterActivity extends AppCompatActivity {
@@ -65,7 +41,6 @@ public class TaxiDriverRegisterActivity extends AppCompatActivity {
         Integer[] coloTemp = {
                 getResources().getColor(R.color.registerColor1),
                 getResources().getColor(R.color.registerColor2),
-                getResources().getColor(R.color.registerColor3),
                 getResources().getColor(R.color.registerColor4)
         };
 

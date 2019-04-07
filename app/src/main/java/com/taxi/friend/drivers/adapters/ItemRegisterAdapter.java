@@ -70,7 +70,7 @@ public class ItemRegisterAdapter extends PagerAdapter {
         container.addView(view);
         imagesList[position] = imageView;
 
-        ImageButton.OnClickListener mTakePicSOnClickListener =
+        /*ImageButton.OnClickListener mTakePicSOnClickListener =
                 new ImageButton.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -90,7 +90,7 @@ public class ItemRegisterAdapter extends PagerAdapter {
             mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
         } else {
             mAlbumStorageDirFactory = new BaseAlbumDirFactory();
-        }
+        }*/
 
         return view;
     }
