@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TaxiDriverRegisterActivity">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".TaxiDriverRegisterActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:text="Registrate con 4 fotos"/>
-    
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="Registrate con 4 fotos"/>
+
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:foregroundGravity="center"
-        android:layout_centerInParent="true"
-        android:overScrollMode="never"
-        android:clipToPadding="false"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:id="@+id/viewPager"
+            android:foregroundGravity="center"
+            android:layout_centerInParent="true"
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:weightSum="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
         <Button
-            android:id="@+id/btnRegisterDriver"
-            android:text="Registrarse"
-            android:textColor="#fff"
-            android:background="@color/btnSignIn"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                android:id="@+id/btnRegisterDriver"
+                android:text="Registrarse"
+                android:textColor="#fff"
+                android:background="@color/btnSignIn"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

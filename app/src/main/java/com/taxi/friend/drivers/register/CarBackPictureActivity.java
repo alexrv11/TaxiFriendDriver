@@ -11,6 +11,7 @@ import com.taxi.friend.drivers.R;
 public class CarBackPictureActivity extends AppCompatActivity {
 
     private Button btnNext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,7 @@ public class CarBackPictureActivity extends AppCompatActivity {
         });
     }
 
-    public void showNextStep(){
+    public void showNextStep() {
         Intent intent = new Intent(this, RegisterDriverAccountActivity.class);
 
         startActivity(intent);

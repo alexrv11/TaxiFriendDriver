@@ -1,83 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:theme="@style/Theme.AppCompat"
-    tools:context=".MainActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/rootLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_taxi_color"
+                android:theme="@style/Theme.AppCompat"
+                tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Taxi"
-            android:textAlignment="center"
-
-            android:textColor="@android:color/white"
-            android:textSize="36sp" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="FRIEND"
-            android:textAlignment="center"
+                android:id="@+id/title_app_primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taxi"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_black"
+                android:textColor="@color/colorTitle"
+                android:textSize="48sp"/>
 
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+        <TextView
+                android:id="@+id/title_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="FRIEND"
+                android:textAlignment="center"
+
+                android:textColor="@color/colorTitle"
+                android:textSize="22sp"/>
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/txt_rider_app"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Busca a alguien que te lleve"
-        android:textAlignment="center"
-        android:textColor="@color/bottomText"
-        android:textSize="14sp" />
+            android:id="@+id/txt_rider_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/roboto_italic"
+            android:text="Aprovecha tus frecuencias"
+            android:textAlignment="center"
+            android:textColor="@color/colorMessageWelcome"
+            android:textSize="18sp"/>
+
+    <LinearLayout
+            android:id="@+id/buttonContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/txt_rider_app"
+            android:layout_margin="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+        <Button
+                android:id="@+id/btnSignIn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_sign_in_background"
+                android:text="INICIAR"
+                android:textColor="@android:color/white"/>
+
+        <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_register_background"
+                android:text="REGISTRARSE"
+                android:textColor="@color/btnRegister"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txt_rider_app"
+        android:layout_above="@+id/buttonContainer"
         android:layout_margin="16dp"
         android:orientation="horizontal"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/btnSignIn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_sign_in_background"
-            android:text="INICIAR"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/btnSignUp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_register_background"
-            android:text="REGISTRARSE"
-            android:textColor="@color/btnRegister" />
-
+        android:weightSum="1"
+        android:gravity="center"
+        android:textAlignment="center"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_friend_taxi"/>
     </LinearLayout>
 
 </RelativeLayout>

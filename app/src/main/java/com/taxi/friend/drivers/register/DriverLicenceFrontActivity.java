@@ -11,6 +11,7 @@ import com.taxi.friend.drivers.R;
 public class DriverLicenceFrontActivity extends AppCompatActivity {
 
     private Button btnNext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,7 @@ public class DriverLicenceFrontActivity extends AppCompatActivity {
         });
     }
 
-    public void showNextStep(){
+    public void showNextStep() {
         Intent intent = new Intent(this, DriverLicenseBackActivity.class);
 
         startActivity(intent);

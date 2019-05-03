@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#AEB9DF</color>
+    <color name="colorPrimaryDark">#1B3172</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="bottomText">#ffffff</color>
+    <color name="colorTitle">#000</color>
+    <color name="colorMessageWelcome">#0d1180</color>
     <color name="rippleEffectStyle">#f816a463</color>
     <color name="btnRegister">#007491</color>
-    <color name="btnSignIn">#0d1180</color>
+    <color name="btnSignIn">#000</color>
 
     <color name="registerColor1">#424549</color>
     <color name="registerColor2">#ffffff</color>
     <color name="registerColor4">#452121</color>
+    <color name="backgroundColorStart">#FFE182</color>
+    <color name="backgroundColorEnd">#FEB709</color>
 </resources>

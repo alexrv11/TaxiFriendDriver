@@ -14,11 +14,10 @@ import java.util.List;
 public class TaxiDriverRegisterActivity extends AppCompatActivity {
 
     private List<ItemRegisterDriverModel> models;
-    private  ItemRegisterAdapter adapter;
+    private ItemRegisterAdapter adapter;
     private ViewPager viewPager;
     private Integer[] colours;
     private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
-
 
 
     @Override
@@ -49,13 +48,12 @@ public class TaxiDriverRegisterActivity extends AppCompatActivity {
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixel) {
-                if(position < (adapter.getCount()-1) && position < (colours.length -1))
-                {
-                    viewPager.setBackgroundColor((Integer) argbEvaluator.evaluate(positionOffset, colours[position], colours[position+1]));
+                if (position < (adapter.getCount() - 1) && position < (colours.length - 1)) {
+                    viewPager.setBackgroundColor((Integer) argbEvaluator.evaluate(positionOffset, colours[position], colours[position + 1]));
                     return;
                 }
 
-                viewPager.setBackgroundColor(colours[colours.length-1]);
+                viewPager.setBackgroundColor(colours[colours.length - 1]);
             }
 
             @Override

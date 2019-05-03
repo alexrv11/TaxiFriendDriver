@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/registerColor2"
-    tools:context=".TaxiDriverRegisterActivity">
-
-    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical">
+        android:background="@color/registerColor2"
+        tools:context=".TaxiDriverRegisterActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/imageCIFrontal"
-            android:src="@drawable/ic_round_account_driver"
-            android:background="#80000000"
-            android:layout_width="60dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="60dp" />
+                android:id="@+id/imageCIFrontal"
+                android:src="@drawable/ic_round_account_driver"
+                android:background="#80000000"
+                android:layout_width="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="60dp"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:text="Unete a Taxi Friend"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="Unete a Taxi Friend"/>
 
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:text="Crea tu cuenta en pocos pasos"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="Crea tu cuenta en pocos pasos"/>
 
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:weightSum="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
         <Button
-            android:id="@+id/btnNext"
-            android:text="Siguiente"
-            android:textColor="#fff"
-            android:background="@color/btnSignIn"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                android:id="@+id/btnNext"
+                android:text="Siguiente"
+                android:textColor="#fff"
+                android:background="@color/btnSignIn"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

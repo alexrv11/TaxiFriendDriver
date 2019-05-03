@@ -27,7 +27,7 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
         });
     }
 
-    public void showNextStep(){
+    public void showNextStep() {
         /*
         Intent intent = new Intent(this, DriverLicenseBackActivity.class);
 

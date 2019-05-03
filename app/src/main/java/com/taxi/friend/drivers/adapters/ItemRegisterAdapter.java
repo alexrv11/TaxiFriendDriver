@@ -30,7 +30,7 @@ public class ItemRegisterAdapter extends PagerAdapter {
         this.models = models;
         this.context = context;
         imagesList = new ImageView[models.size()];
-        for (int i=0; i < models.size(); i++) {
+        for (int i = 0; i < models.size(); i++) {
             imagesList[i] = null;
         }
     }
@@ -59,9 +59,8 @@ public class ItemRegisterAdapter extends PagerAdapter {
         btnGallery = view.findViewById(R.id.btnGallery);
         imageView = view.findViewById(R.id.imageCIFrontal);
         imageView.setImageResource(models.get(position).getImage());
-        if(imagesList[position] != null)
-        {
-            Bitmap bitmap = ((BitmapDrawable)(imagesList[position].getDrawable())).getBitmap();
+        if (imagesList[position] != null) {
+            Bitmap bitmap = ((BitmapDrawable) (imagesList[position].getDrawable())).getBitmap();
             imageView.setImageBitmap(bitmap);
         }
 
@@ -97,11 +96,11 @@ public class ItemRegisterAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 
-    public ImageView getImageView(int position){
-        if(position < imagesList.length){
+    public ImageView getImageView(int position) {
+        if (position < imagesList.length) {
             return imagesList[position];
         }
 
