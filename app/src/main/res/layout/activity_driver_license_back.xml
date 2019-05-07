@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/registerColor2"
+        android:background="@drawable/background_taxi_color"
         tools:context=".TaxiDriverRegisterActivity">
 
     <LinearLayout
@@ -21,26 +21,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="18dp"
+                android:textSize="22dp"
                 android:textStyle="normal"
-                android:text="Toma una foto de tu"/>
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_black"
+                android:textColor="@color/colorTitle"
+                android:text="Toma una foto del"/>
 
         <TextView
                 android:layout_width="wrap_content"
+                android:layout_marginTop="25dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:text="Licencia de conducir la parte de atras."/>
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_black"
+                android:textColor="@color/colorTitle"
+                android:text="Reverso de tu Licencia de conducir"/>
 
 
         <ImageView
                 android:id="@+id/imageCIFrontal"
-                android:src="@drawable/ic_round_card_identify"
-                android:background="#80000000"
-                android:layout_width="220dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/rectangular"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_width="250dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_height="220dp"/>
+                android:layout_height="180dp"/>
 
         <LinearLayout
                 android:layout_width="wrap_content"
@@ -57,20 +65,10 @@
                     android:textColor="#fff"
                     android:background="@drawable/ic_round_photo_camera"
                     android:layout_marginRight="6dp"
+                    android:layout_marginTop="15dp"
                     android:layout_weight="0.4"
                     android:layout_width="40dp"
                     android:clickable="true"
-                    android:layout_height="40dp"/>
-
-            <ImageButton
-                    android:id="@+id/btnGallery"
-                    android:text="Galleria"
-                    android:textColor="#fff"
-                    android:background="@drawable/ic_round_photo"
-                    android:layout_marginLeft="6dp"
-                    android:clickable="true"
-                    android:layout_weight="0.6"
-                    android:layout_width="40dp"
                     android:layout_height="40dp"/>
 
         </LinearLayout>

@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/registerColor2"
+        android:background="@drawable/background_taxi_color"
         tools:context=".TaxiDriverRegisterActivity">
 
     <LinearLayout
@@ -19,18 +19,21 @@
 
         <ImageView
                 android:id="@+id/imageCIFrontal"
-                android:src="@drawable/ic_round_account_driver"
-                android:background="#80000000"
-                android:layout_width="60dp"
+                android:src="@drawable/join_us"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_height="60dp"/>
+                android:layout_height="wrap_content"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
-                android:textSize="18dp"
-                android:textStyle="bold"
+                android:textSize="22dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_black"
+                android:textColor="@color/colorTitle"
                 android:text="Unete a Taxi Friend"/>
 
 
@@ -38,8 +41,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="14dp"
-                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:textSize="18dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_black"
+                android:textColor="@color/colorTitle"
                 android:text="Crea tu cuenta en pocos pasos"/>
 
 

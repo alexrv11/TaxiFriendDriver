@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/registerColor2"
+        android:background="@drawable/background_taxi_color"
         tools:context=".TaxiDriverRegisterActivity">
 
     <LinearLayout
@@ -21,25 +21,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="18dp"
+                android:textSize="22dp"
                 android:textStyle="normal"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_black"
+                android:textColor="@color/colorTitle"
                 android:text="Toma una foto"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:textSize="18dp"
-                android:textStyle="bold"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_black"
+                android:textColor="@color/colorTitle"
                 android:text="De adelante de tu automovil"/>
 
         <ImageView
                 android:id="@+id/imageCIFrontal"
-                android:src="@drawable/ic_round_directions_car"
-                android:background="#80000000"
-                android:layout_width="220dp"
+                android:src="@drawable/ic_car_register_front"
+                android:layout_width="250dp"
+                android:layout_marginTop="15dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_height="220dp"/>
+                android:layout_height="180dp"/>
 
         <LinearLayout
                 android:layout_width="wrap_content"

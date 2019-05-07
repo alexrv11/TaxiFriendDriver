@@ -6,7 +6,7 @@
     <color name="colorTitle">#000</color>
     <color name="colorMessageWelcome">#0d1180</color>
     <color name="rippleEffectStyle">#f816a463</color>
-    <color name="btnRegister">#007491</color>
+    <color name="btnRegister">#000</color>
     <color name="btnSignIn">#000</color>
 
     <color name="registerColor1">#424549</color>
