@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_taxi_color"
-        tools:context=".TaxiDriverRegisterActivity">
+        tools:context=".register.RegisterWelcomeActivity">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -20,15 +20,15 @@
         <ImageView
                 android:id="@+id/imageCIFrontal"
                 android:src="@drawable/join_us"
-                android:layout_width="wrap_content"
+                android:layout_width="320dp"
                 android:layout_marginBottom="15dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_height="wrap_content"/>
+                android:layout_height="250dp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:textSize="22dp"
                 android:textAlignment="center"

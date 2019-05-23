@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
     android:background="@drawable/background_taxi_color"
-        tools:context=".TaxiDriverRegisterActivity">
+        tools:context=".register.DriverLicenceFrontActivity">
 
     <LinearLayout
             android:layout_width="match_parent"

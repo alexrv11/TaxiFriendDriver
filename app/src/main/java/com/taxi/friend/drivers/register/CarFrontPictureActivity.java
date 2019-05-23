@@ -28,7 +28,7 @@ public class CarFrontPictureActivity extends AppCompatActivity {
     }
 
     public void showNextStep() {
-        Intent intent = new Intent(this, CarBackPictureActivity.class);
+        Intent intent = new Intent(this, CarSidePictureActivity.class);
 
         startActivity(intent);
     }

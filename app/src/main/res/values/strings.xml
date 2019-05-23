@@ -1,4 +1,14 @@
 <resources>
-    <string name="app_name">friend driver</string>
-    <string name="title_activity_drivers_map">Map</string>
+    <string name="app_name">Taxi Friend</string>
+    <string name="title_activity_drivers_map">Ubicacion</string>
+    <string name="title_activity_main_driver">Taxi Friend</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Administracion</string>
+    <string name="nav_header_subtitle">745312356</string>
+    <string name="nav_header_desc"></string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

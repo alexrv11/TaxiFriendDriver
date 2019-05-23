@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 String userName = editEMail.getText().toString();
                 String password = editPassword.getText().toString();
 
-                startActivity(new Intent(MainActivity.this, DriversMapActivity.class));
+                startActivity(new Intent(MainActivity.this, MainDriverActivity.class));
 
             }
         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

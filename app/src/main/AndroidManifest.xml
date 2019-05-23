@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.taxi.friend.drivers">
-
+    package="com.taxi.friend.drivers">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_friend_taxi"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_friend_taxi_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme.NoActionBar">
-
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_friend_taxi"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_friend_taxi_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".MainDriverActivity"
+            android:label="@string/title_activity_main_driver"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -30,26 +32,26 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_maps_key"/>
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <activity
-                android:name=".DriversMapActivity"
-                android:label="@string/title_activity_drivers_map"></activity>
-        <activity android:name=".register.RegisterDriverAccountActivity"/>
-        <activity android:name=".register.CarBackPictureActivity"/>
-        <activity android:name=".register.CarFrontPictureActivity"/>
-        <activity android:name=".register.DriverLicenseBackActivity"/>
-        <activity android:name=".register.DriverLicenceFrontActivity"/>
-        <activity android:name=".register.RegisterWelcomeActivity"/>
-        <activity android:name=".TaxiDriverRegisterActivity"/>
+            android:name=".DriversMapFragment"
+            android:label="@string/title_activity_drivers_map" />
+        <activity android:name=".register.RegisterDriverAccountActivity" />
+        <activity android:name=".register.CarBackPictureActivity" />
+        <activity android:name=".register.CarFrontPictureActivity" />
+        <activity android:name=".register.CarSidePictureActivity" />
+        <activity android:name=".register.DriverLicenseBackActivity" />
+        <activity android:name=".register.DriverLicenceFrontActivity" />
+        <activity android:name=".register.RegisterWelcomeActivity" />
         <activity
-                android:name=".MainActivity"
-                android:label="@string/app_name">
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

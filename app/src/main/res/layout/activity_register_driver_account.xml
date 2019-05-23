@@ -5,8 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/registerColor2"
-        tools:context=".TaxiDriverRegisterActivity">
+        android:background="@drawable/background_taxi_color"
+        tools:context=".register.RegisterDriverAccountActivity">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -17,21 +17,32 @@
             android:orientation="vertical"
             android:layout_gravity="center_vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="22dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/roboto_black"
+            android:textColor="@color/colorTitle"
+            android:text="Ultimo paso, necesitamos crear tu cuenta"/>
+
         <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/editMail"
                 android:hint="Nombre y Apellido"
                 android:inputType="textCapWords"
                 android:text=""
                 android:textSize="20sp"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorTitle"
+                android:textColorHint="@color/colorTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 app:met_singleLineEllipsis="true"
-                app:met_baseColor="@color/colorPrimary"
+                app:met_baseColor="@color/colorTitle"
                 app:met_floatingLabel="highlight"
-                app:met_primaryColor="@color/colorPrimary"
+                app:met_primaryColor="@color/colorTitle"
         />
 
         <com.rengwuxian.materialedittext.MaterialEditText
@@ -40,15 +51,15 @@
                 android:inputType="phone"
                 android:text=""
                 android:textSize="20sp"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorTitle"
+                android:textColorHint="@color/colorTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 app:met_singleLineEllipsis="true"
-                app:met_baseColor="@color/colorPrimary"
+                app:met_baseColor="@color/colorTitle"
                 app:met_floatingLabel="highlight"
-                app:met_primaryColor="@color/colorPrimary"
+                app:met_primaryColor="@color/colorTitle"
         />
 
         <com.rengwuxian.materialedittext.MaterialEditText
@@ -57,15 +68,15 @@
                 android:inputType="textPassword"
                 android:text=""
                 android:textSize="20sp"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorTitle"
+                android:textColorHint="@color/colorTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 app:met_singleLineEllipsis="true"
-                app:met_baseColor="@color/colorPrimary"
+                app:met_baseColor="@color/colorTitle"
                 app:met_floatingLabel="highlight"
-                app:met_primaryColor="@color/colorPrimary"
+                app:met_primaryColor="@color/colorTitle"
         />
 
     </LinearLayout>
@@ -82,7 +93,7 @@
 
         <Button
                 android:id="@+id/btnNext"
-                android:text="Siguiente"
+                android:text="Finalizar"
                 android:textColor="#fff"
                 android:background="@color/btnSignIn"
                 android:layout_weight="1"
