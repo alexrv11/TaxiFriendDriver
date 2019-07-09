@@ -9,6 +9,8 @@
     <color name="btnRegister">#000</color>
     <color name="btnSignIn">#000</color>
 
+    <color name="btnEnableColor">#000</color>
+    <color name="btnDisableColor">#424549</color>
     <color name="registerColor1">#424549</color>
     <color name="registerColor2">#ffffff</color>
     <color name="registerColor4">#452121</color>

@@ -108,44 +108,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showRegisterDialog() {
-        /*AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("REGISTER");
-        dialog.setMessage("Please use email to register");
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View registerLayout = inflater.inflate(R.layout.layout_register, null);
-
-        final MaterialEditText editName = registerLayout.findViewById(R.id.editName);
-        final MaterialEditText editCI = registerLayout.findViewById(R.id.editCI);
-        final MaterialEditText editPhone = registerLayout.findViewById(R.id.editPhone);
-        final MaterialEditText editCarType = registerLayout.findViewById(R.id.editCarType);
-        final MaterialEditText editNumberCar = registerLayout.findViewById(R.id.editNumberCar);
-
-        dialog.setView(registerLayout);
-
-        dialog.setPositiveButton("REGISTER", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-                dialogInterface.dismiss();
-
-
-                if (TextUtils.isEmpty(editPhone.getText().toString())) {
-                    Snackbar.make(rootLayout, "Please enter phone number", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-
-            }
-        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        dialog.show();
-        */
         Intent intent = new Intent(this, RegisterWelcomeActivity.class);
 
         startActivity(intent);
     }
+
 }

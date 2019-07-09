@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-    android:background="@drawable/background_taxi_color"
-        tools:context=".register.DriverLicenceFrontActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_taxi_color">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -29,6 +28,7 @@
                 android:text="Toma una foto de tu"/>
 
         <TextView
+            android:id="@+id/messageForm"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="25dp"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
 
 
         <ImageView
-                android:id="@+id/imageCIFrontal"
+                android:id="@+id/imagePreview"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/ic_003_id_card_1"
                 android:adjustViewBounds="true"

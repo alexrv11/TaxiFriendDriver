@@ -6,18 +6,18 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_perfil"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Perfil" />
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_travels"
             android:icon="@drawable/ic_menu_camera"
             android:title="Carreras" />
     </group>
     <item android:title="Activar Taxi Libre">
         <menu>
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_free_drive"
                 android:icon="@drawable/ic_menu_send"
                 app:actionViewClass="android.widget.ToggleButton"
                 android:title="Sin restriccion Veicular" />
@@ -26,10 +26,11 @@
     </item>
     <item android:title="Cuenta Creditos">
         <menu>
+
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_credit_qr"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Recargar Carreras" />
+                android:title="Carga QR" />
         </menu>
     </item>
 
@@ -40,5 +41,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Ver" />
         </menu>
+
     </item>
 </menu>

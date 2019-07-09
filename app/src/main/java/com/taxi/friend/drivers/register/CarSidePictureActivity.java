@@ -7,29 +7,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.taxi.friend.drivers.R;
+import com.taxi.friend.drivers.TaxiGlobalInfo;
 
-public class CarSidePictureActivity extends AppCompatActivity {
+public class CarSidePictureActivity extends BaseRegisterActivity {
 
-    private Button btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_side_picture);
 
-        btnNext = findViewById(R.id.btnNext);
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showNextStep();
-            }
-        });
-    }
-
-    public void showNextStep() {
-        Intent intent = new Intent(this, CarBackPictureActivity.class);
-
-        startActivity(intent);
+        super.initialize( CarBackPictureActivity.class, TaxiGlobalInfo.CAR_SIDE_PHOTO);
     }
 }

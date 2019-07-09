@@ -82,7 +82,6 @@
                 android:background="@drawable/btn_register_background"
                 android:text="REGISTRARSE"
                 android:textColor="@color/btnRegister"/>
-
     </LinearLayout>
 
     <LinearLayout

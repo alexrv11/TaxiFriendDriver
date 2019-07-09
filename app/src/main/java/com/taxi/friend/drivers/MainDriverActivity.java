@@ -1,7 +1,9 @@
 package com.taxi.friend.drivers;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +19,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -34,8 +35,22 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.taxi.friend.drivers.barcodereader.BarcodeCaptureActivity;
+import com.taxi.friend.drivers.constants.Constants;
+import com.taxi.friend.drivers.models.DriverLocation;
+import com.taxi.friend.drivers.models.ResponseWrapper;
+import com.taxi.friend.drivers.services.DriverService;
+import com.taxi.friend.drivers.utils.GPSCoordinate;
+
+import java.net.HttpURLConnection;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainDriverActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -50,14 +65,17 @@ public class MainDriverActivity extends AppCompatActivity
     private LocationRequest locationRequest;
     private GoogleApiClient googleApiClient;
     private Location lastLocation;
+    private Location preLastLocation;
+    private int lastDirection = 0;
     FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback locationCallback;
 
     private static final int MY_PERMISSION_REQUEST_CODE = 7000;
 
     private static int UPDATE_INTERVAL = 5000;
-    private static int FATEST_INTERVAL = 3000;
+    private static int FASTEST_INTERVAL = 3000;
     private static int DISPLACEMENT = 10;
+    private static int MIN_DISTANCE = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +116,25 @@ public class MainDriverActivity extends AppCompatActivity
                 }
 
                 for (Location location : locationResult.getLocations()) {
-                    lastLocation = location;
-                    Log.i("LocationTest", "update");
-                    displayLocation();
+                    if(lastLocation == null) {
+                        lastLocation = location;
+                    }
+
+                    if(location != null){
+                        double lat2 = location.getLatitude();
+                        double lon2 = location.getLongitude();
+                        double lat1 = lastLocation.getLatitude();
+                        double lon1 = lastLocation.getLongitude();
+                        if(GPSCoordinate.distanceInMeterBetweenEarthCoordinates(lat2, lon2, lat1, lon1) > MIN_DISTANCE){
+                            preLastLocation = lastLocation;
+                            lastLocation = location;
+
+                            displayLocation();
+                            updateDriverLocation();
+
+                        }
+                    }
+
                 }
             }
         };
@@ -122,27 +156,6 @@ public class MainDriverActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_driver, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -150,9 +163,10 @@ public class MainDriverActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-        } else if (id == R.id.nav_gallery) {
-        } else if (id == R.id.nav_send) {
+        if (id == R.id.nav_credit_qr) {
+            startActivity(new Intent(MainDriverActivity.this, BarcodeCaptureActivity.class));
+        } else if (id == R.id.nav_perfil) {
+        } else if (id == R.id.nav_travels) {
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -175,9 +189,23 @@ public class MainDriverActivity extends AppCompatActivity
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.mapstyle));
+
+            if (!success) {
+                Log.e("ErrorFailLoadMapStyle", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("ErrorNotFoundResource", "Can't find style. Error: ", e);
+        }
+
+        displayLocation();
+
+        displayDrivers();
     }
 
 
@@ -225,7 +253,7 @@ public class MainDriverActivity extends AppCompatActivity
     private void createLocationRequest() {
         locationRequest = new LocationRequest();
         locationRequest.setInterval(UPDATE_INTERVAL);
-        locationRequest.setInterval(FATEST_INTERVAL);
+        locationRequest.setInterval(FASTEST_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setSmallestDisplacement(DISPLACEMENT);
 
@@ -245,15 +273,120 @@ public class MainDriverActivity extends AppCompatActivity
                 lastMarker.remove();
             }
 
+            int direction = getDirection(preLastLocation, lastLocation);
             lastMarker = mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(android.R.drawable.star_on))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_taxi_car_you))
                     .position(new LatLng(latitude, longitude)).title("You "));
-
+            lastMarker.setRotation(direction);
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15.0f));
 
         } else {
             Log.d("ERROR", "Cannot get your location");
         }
+    }
+
+    private int getDirection(Location preLastLocation, Location lastLocation) {
+
+        if(preLastLocation == null || lastLocation == null) {
+            return lastDirection;
+        }
+
+        double lon2 = lastLocation.getLongitude();
+        double lon1 = preLastLocation.getLongitude();
+        double lat2 = lastLocation.getLatitude();
+        double lat1 = preLastLocation.getLatitude();
+
+        if(GPSCoordinate.distanceInMeterBetweenEarthCoordinates(lat2, lon2, lat1, lon1) < MIN_DISTANCE){
+            return lastDirection;
+        }
+
+        double dLon = lon2 - lon1;
+        double y = Math.sin(dLon) * Math.cos(lat2);
+        double x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) *Math.cos(dLon);
+        int bearing = (int)(Math.atan2(y, x) * 180 / Math.PI);
+
+        if (bearing < 0) bearing += 360;
+
+        lastDirection = bearing;
+
+        return lastDirection;
+    }
+
+    private void displayDrivers(){
+        try{
+            DriverService service = new DriverService();
+            Call<ResponseWrapper<DriverLocation>> callDrivers = service.getDriverMates(6);
+
+            callDrivers.enqueue(new Callback<ResponseWrapper<DriverLocation>>() {
+                @Override
+                public void onResponse(Call<ResponseWrapper<DriverLocation>> call, Response<ResponseWrapper<DriverLocation>> response) {
+                    List<DriverLocation> drivers = response.body().getResult();
+                    for ( int i = 0; i < drivers.size(); i++){
+                        DriverLocation driver = drivers.get(i);
+                        double latitude = driver.getLatitude();
+                        double longitude = driver.getLongitude();
+                        Log.i("taxi", "taxi" + driver.getId());
+                        int taxiIcon = getDriverIcon(driver.getStatus());
+
+
+                        mMap.addMarker(new MarkerOptions()
+                                .icon(BitmapDescriptorFactory.fromResource(taxiIcon))
+                                .position(new LatLng(latitude, longitude)).title(driver.getName()))
+                                .setRotation(driver.getDirection());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseWrapper<DriverLocation>> call, Throwable t) {
+                    Log.e("ErrorGettingDrivers", t.getMessage());
+                }
+            });
+
+        }
+        catch (Exception e){
+            Log.i("taxi", "taxi error");
+        }
+    }
+
+    private void updateDriverLocation(){
+        try{
+            DriverService service = new DriverService();
+            Call<String> callUpdate = service.updateLocation(6, lastLocation);
+
+            callUpdate.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    int code = response.code();
+                    if(code != HttpURLConnection.HTTP_OK){
+                        Log.e("UpdateLocation", String.format("Response updating location: %d", code));
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.e("ErrorUpdateDriverLoc", t.getMessage());
+                }
+            });
+
+        }
+        catch (Exception e){
+            Log.i("taxi", "taxi error");
+        }
+    }
+
+    private int getDriverIcon(String status) {
+
+        int driverIconResource = R.mipmap.ic_taxi_car_you;
+        if(status.equals(Constants.DRIVER_STATUS_FREE)) {
+            driverIconResource = R.mipmap.ic_taxi_car_green;
+        }
+
+        if( status.equals(Constants.DRIVER_STATUS_BUSY)) {
+            driverIconResource = R.mipmap.ic_taxi_car_blue;
+        }
+
+        return driverIconResource;
     }
 
     @Override
