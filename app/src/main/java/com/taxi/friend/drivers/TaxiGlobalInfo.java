@@ -2,6 +2,10 @@ package com.taxi.friend.drivers;
 
 import android.graphics.Bitmap;
 
+import com.taxi.friend.drivers.models.DriverLocation;
+
+import com.taxi.friend.drivers.view.models.MenuMainUserViewModel;
+
 import java.util.HashMap;
 
 public class TaxiGlobalInfo {
@@ -13,4 +17,7 @@ public class TaxiGlobalInfo {
     public static String LICENSE_FRONT_PHOTO = "LICENSE_FRONT_PHOTO";
     public static HashMap<String, String> photoMap = new HashMap<>();
     public static HashMap<String, Bitmap> photoBitmap = new HashMap<>();
+    public static DriverLocation taxiDriver;
+    public static MenuMainUserViewModel mainViewModel;
+    public static String DriverId="6";
 }

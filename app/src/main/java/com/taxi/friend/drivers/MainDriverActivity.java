@@ -1,6 +1,9 @@
 package com.taxi.friend.drivers;
 
 import android.Manifest;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -20,6 +23,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -42,8 +46,10 @@ import com.taxi.friend.drivers.barcodereader.BarcodeCaptureActivity;
 import com.taxi.friend.drivers.constants.Constants;
 import com.taxi.friend.drivers.models.DriverLocation;
 import com.taxi.friend.drivers.models.ResponseWrapper;
+import com.taxi.friend.drivers.models.User;
 import com.taxi.friend.drivers.services.DriverService;
 import com.taxi.friend.drivers.utils.GPSCoordinate;
+import com.taxi.friend.drivers.view.models.MenuMainUserViewModel;
 
 import java.net.HttpURLConnection;
 import java.util.List;
@@ -61,6 +67,10 @@ public class MainDriverActivity extends AppCompatActivity
 
     private GoogleMap mMap;
     Marker lastMarker;
+
+    private TextView textViewUserName;
+    private TextView textViewCredit;
+    private String credit;
 
     private LocationRequest locationRequest;
     private GoogleApiClient googleApiClient;
@@ -102,9 +112,31 @@ public class MainDriverActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+
+        textViewCredit = headerView.findViewById(R.id.txtTotalCredit);
+        textViewUserName = headerView.findViewById(R.id.txtuserName);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //User Tax info
+        TaxiGlobalInfo.mainViewModel = ViewModelProviders.of(this)
+                .get(MenuMainUserViewModel.class);
+        DriverService driverService = new DriverService();
+        driverService.getDriver(TaxiGlobalInfo.DriverId);
+        TaxiGlobalInfo.mainViewModel = new MenuMainUserViewModel( new MutableLiveData<User>());
+        TaxiGlobalInfo.mainViewModel.getUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                if(user != null){
+                    textViewCredit.setText("Bs. " + user.getCredit());
+                    textViewUserName.setText(user.getName());
+                }
+
+            }
+        });
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -315,11 +347,11 @@ public class MainDriverActivity extends AppCompatActivity
     private void displayDrivers(){
         try{
             DriverService service = new DriverService();
-            Call<ResponseWrapper<DriverLocation>> callDrivers = service.getDriverMates(6);
+            Call<ResponseWrapper<List<DriverLocation>>> callDrivers = service.getDriverMates(6);
 
-            callDrivers.enqueue(new Callback<ResponseWrapper<DriverLocation>>() {
+            callDrivers.enqueue(new Callback<ResponseWrapper<List<DriverLocation>>>() {
                 @Override
-                public void onResponse(Call<ResponseWrapper<DriverLocation>> call, Response<ResponseWrapper<DriverLocation>> response) {
+                public void onResponse(Call<ResponseWrapper<List<DriverLocation>>> call, Response<ResponseWrapper<List<DriverLocation>>> response) {
                     List<DriverLocation> drivers = response.body().getResult();
                     for ( int i = 0; i < drivers.size(); i++){
                         DriverLocation driver = drivers.get(i);
@@ -337,7 +369,7 @@ public class MainDriverActivity extends AppCompatActivity
                 }
 
                 @Override
-                public void onFailure(Call<ResponseWrapper<DriverLocation>> call, Throwable t) {
+                public void onFailure(Call<ResponseWrapper<List<DriverLocation>>> call, Throwable t) {
                     Log.e("ErrorGettingDrivers", t.getMessage());
                 }
             });
@@ -351,7 +383,7 @@ public class MainDriverActivity extends AppCompatActivity
     private void updateDriverLocation(){
         try{
             DriverService service = new DriverService();
-            Call<String> callUpdate = service.updateLocation(6, lastLocation);
+            Call<String> callUpdate = service.updateLocation(TaxiGlobalInfo.DriverId, lastLocation);
 
             callUpdate.enqueue(new Callback<String>() {
                 @Override

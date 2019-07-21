@@ -8,6 +8,7 @@
         android:background="@drawable/background_taxi_color"
         tools:context=".register.RegisterDriverAccountActivity">
 
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,7 +30,7 @@
             android:text="Ultimo paso, necesitamos crear tu cuenta"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/editMail"
+                android:id="@+id/editName"
                 android:hint="Nombre y Apellido"
                 android:inputType="textCapWords"
                 android:text=""
@@ -46,7 +47,7 @@
         />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/editMail"
+                android:id="@+id/editPhone"
                 android:hint="Celular"
                 android:inputType="phone"
                 android:text=""
@@ -63,7 +64,24 @@
         />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/editMail"
+            android:id="@+id/editCarIdentity"
+            android:hint="Placa del Taxi"
+            android:inputType="phone"
+            android:text=""
+            android:textSize="20sp"
+            android:textColor="@color/colorTitle"
+            android:textColorHint="@color/colorTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:met_singleLineEllipsis="true"
+            app:met_baseColor="@color/colorTitle"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@color/colorTitle"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/editPassword"
                 android:hint="Contraseña"
                 android:inputType="textPassword"
                 android:text=""
@@ -101,6 +119,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/progressContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ProgressBar>
     </LinearLayout>
 
 </RelativeLayout>

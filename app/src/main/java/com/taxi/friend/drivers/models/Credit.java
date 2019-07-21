@@ -1,6 +1,5 @@
 package com.taxi.friend.drivers.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -12,13 +11,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-@Builder
 @NoArgsConstructor
-public class ResponseWrapper<T> {
-
-    private ErrorMessage errors;
-    private T result;
+@AllArgsConstructor
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Credit {
+    private String driverId;
+    private double credit;
 }

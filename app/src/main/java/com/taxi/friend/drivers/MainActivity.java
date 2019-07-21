@@ -1,8 +1,11 @@
 package com.taxi.friend.drivers;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.taxi.friend.drivers.models.TaxiDriver;
+import com.taxi.friend.drivers.models.User;
 import com.taxi.friend.drivers.register.RegisterWelcomeActivity;
+import com.taxi.friend.drivers.view.models.MenuMainUserViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
                 String userName = editEMail.getText().toString();
                 String password = editPassword.getText().toString();
+                /*TaxiGlobalInfo.driverInfo = new TaxiDriver();
+                TaxiGlobalInfo.driverInfo.setName("Test Name");
+                TaxiGlobalInfo.driverInfo.setCredit(0);
+                TaxiGlobalInfo.driverInfo.setId("6");
+                */
 
                 startActivity(new Intent(MainActivity.this, MainDriverActivity.class));
 
