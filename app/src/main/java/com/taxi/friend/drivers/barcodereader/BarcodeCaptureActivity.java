@@ -438,8 +438,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         Intent intent = new Intent(this, LoadQRCreditActivity.class);
 
         String barcodeValue = barcode.rawValue;
-        if(barcodeValue.contains(Constants.FRIEND_QR)){
-            intent.putExtra(Constants.QR_CREDIT_VALUE, barcodeValue);
+        if(barcodeValue.contains(Constants.INSTANCE.getFRIEND_QR())){
+            intent.putExtra(Constants.INSTANCE.getQR_CREDIT_VALUE(), barcodeValue);
 
             startActivity(intent);
             this.finish();

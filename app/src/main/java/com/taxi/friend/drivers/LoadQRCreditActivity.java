@@ -44,7 +44,7 @@ public class LoadQRCreditActivity extends AppCompatActivity {
         initProgress();
         Intent intent = getIntent();
 
-        qrCredit = intent.getStringExtra(Constants.QR_CREDIT_VALUE).replaceAll(Constants.FRIEND_QR, "");
+        qrCredit = intent.getStringExtra(Constants.INSTANCE.getQR_CREDIT_VALUE()).replaceAll(Constants.INSTANCE.getFRIEND_QR(), "");
 
 
         btnLoadCredit.setOnClickListener(new View.OnClickListener() {

@@ -20,7 +20,7 @@ public class GPSCoordinate {
         double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
                 Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        double result = (Constants.RADIO_EART * c) * 1000;
+        double result = (Constants.INSTANCE.getRADIO_EART() * c) * 1000;
         Log.i("DistanceDriver", String.format("Distance driver %f", result));
         return result;
     }

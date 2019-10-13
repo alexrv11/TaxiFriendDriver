@@ -410,11 +410,11 @@ public class MainDriverActivity extends AppCompatActivity
     private int getDriverIcon(String status) {
 
         int driverIconResource = R.mipmap.ic_taxi_car_you;
-        if(status.equals(Constants.DRIVER_STATUS_FREE)) {
+        if(status.equals(Constants.INSTANCE.getDRIVER_STATUS_FREE())) {
             driverIconResource = R.mipmap.ic_taxi_car_green;
         }
 
-        if( status.equals(Constants.DRIVER_STATUS_BUSY)) {
+        if( status.equals(Constants.INSTANCE.getDRIVER_STATUS_BUSY())) {
             driverIconResource = R.mipmap.ic_taxi_car_blue;
         }
 
