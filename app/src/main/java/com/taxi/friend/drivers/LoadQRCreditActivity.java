@@ -39,8 +39,8 @@ public class LoadQRCreditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_qrcredit_activiy);
-        creditValue = (TextView)findViewById(R.id.creditValue);
-        Button btnLoadCredit = (Button)findViewById(R.id.btnLoadCredit);
+        creditValue = findViewById(R.id.creditValue);
+        Button btnLoadCredit = findViewById(R.id.btnLoadCredit);
         initProgress();
         Intent intent = getIntent();
 

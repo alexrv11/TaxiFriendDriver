@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -53,6 +54,8 @@ import com.taxi.friend.drivers.view.models.MenuMainUserViewModel;
 
 import java.net.HttpURLConnection;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -157,14 +160,17 @@ public class MainDriverActivity extends AppCompatActivity
                         double lon2 = location.getLongitude();
                         double lat1 = lastLocation.getLatitude();
                         double lon1 = lastLocation.getLongitude();
+                        displayLocation();
+                        displayDrivers();
+
                         if(GPSCoordinate.distanceInMeterBetweenEarthCoordinates(lat2, lon2, lat1, lon1) > MIN_DISTANCE){
                             preLastLocation = lastLocation;
                             lastLocation = location;
 
-                            displayLocation();
                             updateDriverLocation();
 
                         }
+
                     }
 
                 }
@@ -176,6 +182,7 @@ public class MainDriverActivity extends AppCompatActivity
         displayLocation();
 
         setUpLocation();
+        displayDrivers();
     }
 
     @Override
@@ -345,9 +352,14 @@ public class MainDriverActivity extends AppCompatActivity
     }
 
     private void displayDrivers(){
+        if(lastLocation == null) {
+            return;
+        }
+
         try{
             DriverService service = new DriverService();
-            Call<ResponseWrapper<List<DriverLocation>>> callDrivers = service.getDriverMates(6);
+            int radio = 8;
+            Call<ResponseWrapper<List<DriverLocation>>> callDrivers = service.getDriverLocations(radio, lastLocation.getLatitude(), lastLocation.getLongitude());
 
             callDrivers.enqueue(new Callback<ResponseWrapper<List<DriverLocation>>>() {
                 @Override

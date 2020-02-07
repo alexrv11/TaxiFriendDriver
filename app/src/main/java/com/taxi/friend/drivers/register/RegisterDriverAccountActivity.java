@@ -1,5 +1,6 @@
 package com.taxi.friend.drivers.register;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,8 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.taxi.friend.drivers.MainDriverActivity;
 import com.taxi.friend.drivers.R;
 import com.taxi.friend.drivers.TaxiGlobalInfo;
+import com.taxi.friend.drivers.models.DriverInfo;
 import com.taxi.friend.drivers.models.DriverLocation;
 import com.taxi.friend.drivers.models.ResponseWrapper;
 import com.taxi.friend.drivers.models.TaxiDriver;
@@ -86,32 +89,27 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
                     phone, carIdentity, password);
 
             DriverService service = new DriverService();
-            Call<ResponseWrapper<DriverLocation>> callRequest = service.createDriver(driver);
+            Call<DriverInfo> callRequest = service.createDriver(driver);
 
             try {
 
-
-                requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-                setProgressBarIndeterminateVisibility(true);
-                callRequest.enqueue(new Callback<ResponseWrapper<DriverLocation>>() {
+                callRequest.enqueue(new Callback<DriverInfo>() {
                     @Override
-                    public void onResponse(Call<ResponseWrapper<DriverLocation>> call, Response<ResponseWrapper<DriverLocation>> response) {
+                    public void onResponse(Call<DriverInfo> call, Response<DriverInfo> response) {
                         int code = response.code();
                         if (code != 200) {
-                            String message = response.body().getErrors().getMessage();
+                            String message = "intenta de nuevo crear tu cuenta";
                             Toast.makeText(RegisterDriverAccountActivity.this, message, Toast.LENGTH_LONG).show();
                             return;
                         }
 
-                        DriverLocation responseWrapper = response.body().getResult();
-                        TaxiGlobalInfo.taxiDriver = responseWrapper;
-                        setProgressBarIndeterminateVisibility(true);
+                        TaxiGlobalInfo.taxiDriver = response.body();
+                        redirectDriverMainActivity();
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseWrapper<DriverLocation>> call, Throwable t) {
+                    public void onFailure(Call<DriverInfo> call, Throwable t) {
                         Log.e("ErrorServer", t.getMessage());
-                        setProgressBarIndeterminateVisibility(true);
                     }
                 });
             }catch (Exception e ){
@@ -119,5 +117,15 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void redirectDriverMainActivity(){
+        Intent intent = new Intent(this, MainDriverActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("EXIT", true);
+        startActivity(intent);
+        finish();
     }
 }

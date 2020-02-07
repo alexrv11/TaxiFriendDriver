@@ -1,5 +1,6 @@
 package com.taxi.friend.drivers.repository;
 
+import com.taxi.friend.drivers.models.DriverInfo;
 import com.taxi.friend.drivers.models.DriverLocation;
 import com.taxi.friend.drivers.models.Location;
 import com.taxi.friend.drivers.models.ResponseWrapper;
@@ -18,15 +19,15 @@ import retrofit2.http.Query;
 
 public interface DriverRepository {
 
-    @GET("drivers")
-    Call<ResponseWrapper<List<DriverLocation>>> getDrivers(@Query("id") int id, @Query("radio") int radio,
-                                                     @Query("latitude") double latitude, @Query("longitude") double longitude);
+    @GET("driverlocations")
+    Call<ResponseWrapper<List<DriverLocation>>> getDriverLocations(@Query("radio") int radio,
+                                                                   @Query("latitude") double latitude, @Query("longitude") double longitude);
 
     @PUT("drivers/{driverId}/location")
     Call<String> updateLocation(@Path("driverId") String driverId, @Body Location location);
 
     @POST("drivers")
-    Call<ResponseWrapper<DriverLocation>> createDriver(@Body TaxiDriver taxiDriver);
+    Call<DriverInfo> createDriver(@Body TaxiDriver taxiDriver);
 
     @GET("drivers/{id}")
     Call<ResponseWrapper<User>> getDriver(@Path("id") String id);

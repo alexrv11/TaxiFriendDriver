@@ -7,7 +7,7 @@ public class RestClient {
 
     public  static Retrofit createRestClient(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.31:8080/api/v1/")
+                .baseUrl("https://igyglwsme3.execute-api.us-east-1.amazonaws.com/prod/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 

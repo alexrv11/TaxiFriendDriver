@@ -3,6 +3,7 @@ package com.taxi.friend.drivers.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 
 import lombok.AllArgsConstructor
 import lombok.Builder
@@ -48,13 +49,24 @@ class TaxiDriver {
     constructor(name: String, carFrontPhoto: String, carBackPhoto: String, carSidePhoto: String, licenseFrontPhoto: String,
                 licenseBackPhoto: String, phone: String, carIdentity: String, password: String) {
         this.name = name
+
+        @JsonProperty("front_car_photo")
         this.carFrontPhoto = carFrontPhoto
+
+        @JsonProperty("back_car_photo")
         this.carBackPhoto = carBackPhoto
+
+        @JsonProperty("side_car_photo")
         this.carSidePhoto = carSidePhoto
+
+        @JsonProperty("front_license_photo")
         this.licenseFrontPhoto = licenseFrontPhoto
+
+        @JsonProperty("back_license_photo")
         this.licenseBackPhoto = licenseBackPhoto
         this.phone = phone
         this.password = password
+        @JsonProperty("car_identity")
         this.carIdentity = carIdentity
         this.credit = 0.0
     }
