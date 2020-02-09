@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.taxi.friend.drivers.barcodereader.BarcodeCaptureActivity;
 import com.taxi.friend.drivers.constants.Constants;
 import com.taxi.friend.drivers.models.Credit;
 import com.taxi.friend.drivers.models.Qr;
@@ -34,17 +35,20 @@ public class LoadQRCreditActivity extends AppCompatActivity {
     private LinearLayout loadContainer;
     private LinearLayout progressContainer;
     TextView creditValue;
+    TextView currencyType;
+    Button btnLoadCredit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_qrcredit_activiy);
         creditValue = findViewById(R.id.creditValue);
-        Button btnLoadCredit = findViewById(R.id.btnLoadCredit);
+        currencyType = findViewById(R.id.currencyType);
+        btnLoadCredit = findViewById(R.id.btnLoadCredit);
         initProgress();
         Intent intent = getIntent();
 
-        qrCredit = intent.getStringExtra(Constants.INSTANCE.getQR_CREDIT_VALUE()).replaceAll(Constants.INSTANCE.getFRIEND_QR(), "");
+        qrCredit = intent.getStringExtra(Constants.QR_CREDIT_VALUE).replaceAll(Constants.FRIEND_QR, "");
 
 
         btnLoadCredit.setOnClickListener(new View.OnClickListener() {
@@ -76,14 +80,23 @@ public class LoadQRCreditActivity extends AppCompatActivity {
         CreditService creditService = new CreditService();
 
 
-        Call<ResponseWrapper<Qr>> callQr = creditService.getQrDetails(this.qrCredit);
-        callQr.enqueue(new Callback<ResponseWrapper<Qr>>() {
+        Call<Qr> callQr = creditService.getQrDetails(this.qrCredit);
+        callQr.enqueue(new Callback<Qr>() {
             @Override
-            public void onResponse(Call<ResponseWrapper<Qr>> call, Response<ResponseWrapper<Qr>> response) {
+            public void onResponse(Call<Qr> call, Response<Qr> response) {
                 if(response.code() == HttpsURLConnection.HTTP_OK){
-                    Qr qr = response.body().getResult();
-                    creditValue.setText(qr.getCredit() + "");
+                    Qr qr = response.body();
 
+                    if(!qr.getDriverId().equals(Constants.DRIVER_NONE)) {
+                        Toast.makeText(LoadQRCreditActivity.this,
+                                "Este Qr ya fue usado prueba con otro", Toast.LENGTH_LONG).show();
+                        btnLoadCredit.setVisibility(View.INVISIBLE);
+                        finalizeActivity();
+
+                    } else {
+                        currencyType.setText("Bs");
+                        creditValue.setText(qr.getCredit() + "");
+                    }
                     progressContainer.setVisibility(View.GONE);
                     loadContainer.setVisibility(View.VISIBLE);
                 } else {
@@ -96,7 +109,7 @@ public class LoadQRCreditActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseWrapper<Qr>> call, Throwable t) {
+            public void onFailure(Call<Qr> call, Throwable t) {
                 Log.e("ErrorQr", t.getMessage());
                 Toast.makeText(LoadQRCreditActivity.this,
                         "Hubo problemas al cargar, vuelva a intentarlo mas tarde", Toast.LENGTH_LONG).show();
@@ -107,13 +120,13 @@ public class LoadQRCreditActivity extends AppCompatActivity {
     public void loadCredit() {
         CreditService creditService = new CreditService();
 
-        Call<ResponseWrapper<Credit>> callLoad = creditService.loadCreditByQR(TaxiGlobalInfo.DriverId, qrCredit);
-        callLoad.enqueue(new Callback<ResponseWrapper<Credit>>() {
+        Call<Credit> callLoad = creditService.loadCreditByQR(TaxiGlobalInfo.DriverId, qrCredit);
+        callLoad.enqueue(new Callback<Credit>() {
             @Override
-            public void onResponse(Call<ResponseWrapper<Credit>> call, Response<ResponseWrapper<Credit>> response) {
+            public void onResponse(Call<Credit> call, Response<Credit> response) {
 
                 if(response.code() == HttpURLConnection.HTTP_OK){
-                    Credit credit = response.body().getResult();
+                    Credit credit = response.body();
                     User user = TaxiGlobalInfo.mainViewModel.getUser().getValue();
                     double total = user.getCredit() + credit.getCredit();
                     user.setCredit(total);
@@ -128,7 +141,7 @@ public class LoadQRCreditActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseWrapper<Credit>> call, Throwable t) {
+            public void onFailure(Call<Credit> call, Throwable t) {
                 Log.e("ErrorQr", t.getMessage());
                 Toast.makeText(LoadQRCreditActivity.this,
                         "Hubo problemas al cargar, vuelva a intentarlo mas tarde", Toast.LENGTH_LONG).show();
