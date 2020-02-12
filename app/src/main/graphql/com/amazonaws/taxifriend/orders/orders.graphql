@@ -1,0 +1,23 @@
+mutation createOrder($createorderinput: CreateOrderInput!) {
+  createOrder(input: $createorderinput) {
+    id
+    driver_id
+    latitude
+    longitude
+    status
+  }
+}
+
+
+# After running createOrder, try running the listOrders query.
+query listOrders {
+  listOrders {
+    items {
+      id
+      driver_id
+      latitude
+      longitude
+      status
+    }
+  }
+}

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -15,6 +16,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,7 +28,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
+import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
+import com.amazonaws.taxifriend.orders.ListOrdersQuery;
+import com.apollographql.apollo.GraphQLCall;
+import com.apollographql.apollo.exception.ApolloException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -53,13 +63,18 @@ import com.taxi.friend.drivers.utils.GPSCoordinate;
 import com.taxi.friend.drivers.view.models.MenuMainUserViewModel;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Nonnull;
+
+import com.apollographql.apollo.api.Response;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainDriverActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -89,6 +104,11 @@ public class MainDriverActivity extends AppCompatActivity
     private static int FASTEST_INTERVAL = 3000;
     private static int DISPLACEMENT = 10;
     private static int MIN_DISTANCE = 8;
+    AWSAppSyncClient client;
+    private List<ListOrdersQuery.Item> orders;
+
+    boolean isLargeLayout;
+    boolean isShowOrderDialog = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +203,91 @@ public class MainDriverActivity extends AppCompatActivity
 
         setUpLocation();
         displayDrivers();
+        createAwsAppSync(this);
+
+        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+
+        // This schedule a runnable task every 2 minutes
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                if(lastLocation != null) {
+                    query();
+                }
+            }
+        }, 0, 5, TimeUnit.SECONDS);
+
+        isLargeLayout = getResources().getBoolean(R.bool.large_layout);
+    }
+
+    private void createAwsAppSync(Context context) {
+        AWSConfiguration awsConfig = new AWSConfiguration(context);
+
+        client = AWSAppSyncClient.builder()
+                .context(context)
+                .awsConfiguration(awsConfig)
+                .build();
+    }
+
+    private void query() {
+        if (client == null) {
+            createAwsAppSync(this);
+        }
+        client.query(ListOrdersQuery.builder().build())
+                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
+                .enqueue(eventsCallback);
+    }
+
+    private GraphQLCall.Callback<ListOrdersQuery.Data> eventsCallback = new GraphQLCall.Callback<ListOrdersQuery.Data>() {
+
+        @Override
+        public void onResponse(@NonNull  Response<ListOrdersQuery.Data> response) {
+            ListOrdersQuery.Data data = response.data();
+            if (data != null) {
+                orders = data.listOrders().items();
+            } else {
+                orders = new ArrayList<>();
+            }
+
+
+            //adapter.setEvents(events);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    if(orders.isEmpty()) {
+                        return;
+                    }
+
+                    if(isShowOrderDialog){
+                        return;
+                    }
+
+                    ListOrdersQuery.Item item = orders.get(0);
+
+                    showDialog(item);
+
+
+                    Log.d("NotifiedChanged", "Notifying data set changed");
+                    Toast.makeText(MainDriverActivity.this, "Hello" + orders.size(), Toast.LENGTH_LONG).show();
+                    //adapter.notifyDataSetChanged();
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@NonNull ApolloException e) {
+            Log.e("ErrorApollo", "Failed to make events api call", e);
+
+        }
+    };
+
+    public void showDialog(ListOrdersQuery.Item item) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        CustomDialogFragment newFragment = new CustomDialogFragment(item, lastLocation);
+
+            // The device is using a large layout, so show the fragment as a dialog
+        newFragment.show(fragmentManager, "dialog");
+        isShowOrderDialog = true;
     }
 
     @Override
@@ -363,7 +468,7 @@ public class MainDriverActivity extends AppCompatActivity
 
             callDrivers.enqueue(new Callback<ResponseWrapper<List<DriverLocation>>>() {
                 @Override
-                public void onResponse(Call<ResponseWrapper<List<DriverLocation>>> call, Response<ResponseWrapper<List<DriverLocation>>> response) {
+                public void onResponse(Call<ResponseWrapper<List<DriverLocation>>> call, retrofit2.Response<ResponseWrapper<List<DriverLocation>>> response) {
                     List<DriverLocation> drivers = response.body().getResult();
                     for ( int i = 0; i < drivers.size(); i++){
                         DriverLocation driver = drivers.get(i);
@@ -399,7 +504,7 @@ public class MainDriverActivity extends AppCompatActivity
 
             callUpdate.enqueue(new Callback<String>() {
                 @Override
-                public void onResponse(Call<String> call, Response<String> response) {
+                public void onResponse(Call<String> call, retrofit2.Response<String> response) {
                     int code = response.code();
                     if(code != HttpURLConnection.HTTP_OK){
                         Log.e("UpdateLocation", String.format("Response updating location: %d", code));

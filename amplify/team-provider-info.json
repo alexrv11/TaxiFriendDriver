@@ -1,0 +1,15 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-friendtaxidriver-prod-193738-authRole",
+            "UnauthRoleArn": "arn:aws:iam::879902891360:role/amplify-friendtaxidriver-prod-193738-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::879902891360:role/amplify-friendtaxidriver-prod-193738-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-friendtaxidriver-prod-193738-deployment",
+            "UnauthRoleName": "amplify-friendtaxidriver-prod-193738-unauthRole",
+            "StackName": "amplify-friendtaxidriver-prod-193738",
+            "StackId": "arn:aws:cloudformation:us-east-1:879902891360:stack/amplify-friendtaxidriver-prod-193738/f6d644b0-4c55-11ea-a1f1-0e1aa735f904",
+            "AmplifyAppId": "d3iow06nlpa05h"
+        }
+    }
+}
