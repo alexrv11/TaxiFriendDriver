@@ -1,4 +1,4 @@
-## Aplicacion mobil del conductor
+## Aplicacion movil del conductor
 
 ### Las tecnologias utilizadas son:
 1. Lenguaje de programacion java https://www.java.com/es/download/
