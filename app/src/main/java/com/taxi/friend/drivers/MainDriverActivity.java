@@ -10,14 +10,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -68,8 +66,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Nonnull;
+import java.util.stream.Collectors;
 
 import com.apollographql.apollo.api.Response;
 
@@ -108,7 +105,6 @@ public class MainDriverActivity extends AppCompatActivity
     private List<ListOrdersQuery.Item> orders;
 
     boolean isLargeLayout;
-    boolean isShowOrderDialog = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,10 +238,13 @@ public class MainDriverActivity extends AppCompatActivity
         @Override
         public void onResponse(@NonNull  Response<ListOrdersQuery.Data> response) {
             ListOrdersQuery.Data data = response.data();
+            orders = new ArrayList<>();
             if (data != null) {
-                orders = data.listOrders().items();
-            } else {
-                orders = new ArrayList<>();
+                for (ListOrdersQuery.Item item: data.listOrders().items()) {
+                    if(item.status().equals(Constants.ORDER_STATUS_REGISTERED)) {
+                        orders.add(item);
+                    }
+                }
             }
 
 
@@ -258,7 +257,7 @@ public class MainDriverActivity extends AppCompatActivity
                         return;
                     }
 
-                    if(isShowOrderDialog){
+                    if(TaxiGlobalInfo.isShowOrderDialog){
                         return;
                     }
 
@@ -283,11 +282,11 @@ public class MainDriverActivity extends AppCompatActivity
 
     public void showDialog(ListOrdersQuery.Item item) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        CustomDialogFragment newFragment = new CustomDialogFragment(item, lastLocation);
+        OrderDialogFragment newFragment = new OrderDialogFragment(item, lastLocation);
 
             // The device is using a large layout, so show the fragment as a dialog
         newFragment.show(fragmentManager, "dialog");
-        isShowOrderDialog = true;
+        TaxiGlobalInfo.isShowOrderDialog = true;
     }
 
     @Override
@@ -455,6 +454,7 @@ public class MainDriverActivity extends AppCompatActivity
 
         return lastDirection;
     }
+
 
     private void displayDrivers(){
         if(lastLocation == null) {

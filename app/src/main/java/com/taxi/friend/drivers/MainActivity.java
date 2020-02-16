@@ -39,14 +39,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        rootLayout = (RelativeLayout) findViewById(R.id.rootLayout);
+        rootLayout = findViewById(R.id.rootLayout);
 
-
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
-        btnSignUp = (Button) findViewById(R.id.btnSignUp);
-        txtTitle = (TextView) findViewById(R.id.title_app_primary);
-        txtTitle2 = (TextView) findViewById(R.id.title_app);
-        txtBanner = (TextView) findViewById(R.id.txt_rider_app);
+        btnSignIn = findViewById(R.id.btnSignIn);
+        btnSignUp = findViewById(R.id.btnSignUp);
+        txtTitle =  findViewById(R.id.title_app_primary);
+        txtTitle2 = findViewById(R.id.title_app);
+        txtBanner = findViewById(R.id.txt_rider_app);
 
         //events
         btnSignUp.setOnClickListener(new View.OnClickListener() {

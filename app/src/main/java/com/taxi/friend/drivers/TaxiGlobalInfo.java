@@ -21,4 +21,7 @@ public class TaxiGlobalInfo {
     public static DriverInfo taxiDriver;
     public static MenuMainUserViewModel mainViewModel;
     public static String DriverId="6";
+
+
+    static boolean isShowOrderDialog = false;
 }

@@ -27,11 +27,12 @@
         android:roundIcon="@mipmap/ic_friend_taxi_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".register.BaseRegisterActivity"></activity>
-        <activity android:name=".LoadQRCreditActivity" />
+        <activity android:name=".register.BaseRegisterActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".LoadQRCreditActivity"  android:screenOrientation="portrait"/>
         <activity
             android:name=".MainDriverActivity"
             android:label="@string/title_activity_main_driver"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -51,16 +52,17 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".register.RegisterDriverAccountActivity" />
-        <activity android:name=".register.CarBackPictureActivity" android:configChanges="orientation|screenSize"/>
-        <activity android:name=".register.CarFrontPictureActivity" android:configChanges="orientation|screenSize"/>
-        <activity android:name=".register.CarSidePictureActivity" android:configChanges="orientation|screenSize"/>
-        <activity android:name=".register.DriverLicenseBackActivity" android:configChanges="orientation|screenSize" />
-        <activity android:name=".register.DriverLicenceFrontActivity" android:configChanges="orientation|screenSize"/>
-        <activity android:name=".register.RegisterWelcomeActivity" />
-        <activity android:name=".barcodereader.BarcodeCaptureActivity" />
+        <activity android:name=".register.RegisterDriverAccountActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".register.CarBackPictureActivity" android:configChanges="orientation|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".register.CarFrontPictureActivity" android:configChanges="orientation|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".register.CarSidePictureActivity" android:configChanges="orientation|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".register.DriverLicenseBackActivity" android:configChanges="orientation|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".register.DriverLicenceFrontActivity" android:configChanges="orientation|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".register.RegisterWelcomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".barcodereader.BarcodeCaptureActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -20,7 +20,7 @@
                 android:id="@+id/title_app_primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TAXI"
+                android:text=""
                 android:textAlignment="center"
                 android:fontFamily="@font/roboto_black"
                 android:textColor="@color/colorTitle"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="FRIEND"
+                android:text=""
                 android:textAlignment="center"
 
                 android:textColor="@color/colorTitle"
@@ -88,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/buttonContainer"
-        android:layout_margin="20dp"
+        android:layout_margin="50dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:weightSum="1"
@@ -99,8 +99,8 @@
             android:scaleType="fitCenter"
             android:layout_width="250dp"
             android:layout_gravity="center_horizontal"
-            android:layout_height="180dp"
-            android:src="@drawable/ic_welcome_taxi"/>
+            android:layout_height="250dp"
+            android:src="@drawable/logo"/>
     </LinearLayout>
 
 </RelativeLayout>
