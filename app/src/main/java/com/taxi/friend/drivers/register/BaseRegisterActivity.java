@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,9 +13,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.taxi.friend.drivers.R;
 import com.taxi.friend.drivers.TaxiGlobalInfo;
-import com.taxi.friend.drivers.repository.DriverRepository;
 import com.taxi.friend.drivers.utils.PhotoManager;
 
 import java.io.File;

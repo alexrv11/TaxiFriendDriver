@@ -3,7 +3,6 @@ package com.taxi.friend.drivers;
 import android.graphics.Bitmap;
 
 import com.taxi.friend.drivers.models.DriverInfo;
-import com.taxi.friend.drivers.models.DriverLocation;
 
 import com.taxi.friend.drivers.view.models.MenuMainUserViewModel;
 
@@ -20,7 +19,7 @@ public class TaxiGlobalInfo {
     public static HashMap<String, Bitmap> photoBitmap = new HashMap<>();
     public static DriverInfo taxiDriver;
     public static MenuMainUserViewModel mainViewModel;
-    public static String DriverId="6";
+    public static String DriverId="b6251720-e1a5-4a17-a160-fc630b13cfb8";
 
 
     static boolean isShowOrderDialog = false;

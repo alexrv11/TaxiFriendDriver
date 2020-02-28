@@ -1,14 +1,7 @@
 package com.taxi.friend.drivers;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,11 +10,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.taxi.friend.drivers.models.TaxiDriver;
-import com.taxi.friend.drivers.models.User;
 import com.taxi.friend.drivers.register.RegisterWelcomeActivity;
-import com.taxi.friend.drivers.view.models.MenuMainUserViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void showLoginDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("SignIn");
-        dialog.setMessage("Please use email to enter");
+        dialog.setTitle("Inicia Sesion");
+        dialog.setMessage("");
 
         LayoutInflater inflater = LayoutInflater.from(this);
         View loginLayout = inflater.inflate(R.layout.layout_login, null);
@@ -78,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.setView(loginLayout);
 
-        dialog.setPositiveButton("SignIn", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton("Iniciar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 dialogInterface.dismiss();
 
                 btnSignIn.setEnabled(false);
-                /*
+
                 if (TextUtils.isEmpty(editEMail.getText().toString())) {
                     Snackbar.make(rootLayout, "Please enter email address", Snackbar.LENGTH_SHORT).show();
                     return;
@@ -93,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(editPassword.getText().toString())) {
                     Snackbar.make(rootLayout, "Please enter your password", Snackbar.LENGTH_SHORT).show();
                     return;
-                }*/
+                }
 
                 String userName = editEMail.getText().toString();
                 String password = editPassword.getText().toString();
@@ -103,10 +97,11 @@ public class MainActivity extends AppCompatActivity {
                 TaxiGlobalInfo.driverInfo.setId("6");
                 */
 
+
                 startActivity(new Intent(MainActivity.this, MainDriverActivity.class));
 
             }
-        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 dialogInterface.dismiss();

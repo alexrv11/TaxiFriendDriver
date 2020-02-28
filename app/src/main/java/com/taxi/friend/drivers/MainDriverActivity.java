@@ -1,32 +1,29 @@
 package com.taxi.friend.drivers;
 
 import android.Manifest;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
@@ -51,6 +48,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.navigation.NavigationView;
 import com.taxi.friend.drivers.barcodereader.BarcodeCaptureActivity;
 import com.taxi.friend.drivers.constants.Constants;
 import com.taxi.friend.drivers.models.DriverLocation;
@@ -66,7 +64,6 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import com.apollographql.apollo.api.Response;
 
@@ -112,7 +109,7 @@ public class MainDriverActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_driver);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +117,7 @@ public class MainDriverActivity extends AppCompatActivity
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -141,8 +138,7 @@ public class MainDriverActivity extends AppCompatActivity
         mapFragment.getMapAsync(this);
 
         //User Tax info
-        TaxiGlobalInfo.mainViewModel = ViewModelProviders.of(this)
-                .get(MenuMainUserViewModel.class);
+        TaxiGlobalInfo.mainViewModel = ViewModelProviders.of(this).get(MenuMainUserViewModel.class);
         DriverService driverService = new DriverService();
         driverService.getDriver(TaxiGlobalInfo.DriverId);
         TaxiGlobalInfo.mainViewModel = new MenuMainUserViewModel( new MutableLiveData<User>());
@@ -267,8 +263,7 @@ public class MainDriverActivity extends AppCompatActivity
 
 
                     Log.d("NotifiedChanged", "Notifying data set changed");
-                    Toast.makeText(MainDriverActivity.this, "Hello" + orders.size(), Toast.LENGTH_LONG).show();
-                    //adapter.notifyDataSetChanged();
+
                 }
             });
         }
@@ -472,16 +467,19 @@ public class MainDriverActivity extends AppCompatActivity
                     List<DriverLocation> drivers = response.body().getResult();
                     for ( int i = 0; i < drivers.size(); i++){
                         DriverLocation driver = drivers.get(i);
-                        double latitude = driver.getLatitude();
-                        double longitude = driver.getLongitude();
-                        Log.i("taxi", "taxi" + driver.getId());
-                        int taxiIcon = getDriverIcon(driver.getStatus());
+                        if(!driver.getId().equals(TaxiGlobalInfo.DriverId)) {
+                            double latitude = driver.getLatitude();
+                            double longitude = driver.getLongitude();
+                            Log.i("taxi", "taxi" + driver.getId());
+                            int taxiIcon = getDriverIcon(driver.getStatus());
 
 
-                        mMap.addMarker(new MarkerOptions()
-                                .icon(BitmapDescriptorFactory.fromResource(taxiIcon))
-                                .position(new LatLng(latitude, longitude)).title(driver.getName()))
-                                .setRotation(driver.getDirection());
+                            mMap.addMarker(new MarkerOptions()
+                                    .icon(BitmapDescriptorFactory.fromResource(taxiIcon))
+                                    .position(new LatLng(latitude, longitude)).title(driver.getName()))
+                                    .setRotation(driver.getDirection());
+                        }
+
                     }
                 }
 

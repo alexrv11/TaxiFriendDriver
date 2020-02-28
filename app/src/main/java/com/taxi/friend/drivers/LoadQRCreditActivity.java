@@ -2,7 +2,6 @@ package com.taxi.friend.drivers;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,11 +11,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.taxi.friend.drivers.barcodereader.BarcodeCaptureActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.taxi.friend.drivers.constants.Constants;
 import com.taxi.friend.drivers.models.Credit;
 import com.taxi.friend.drivers.models.Qr;
-import com.taxi.friend.drivers.models.ResponseWrapper;
+
 import com.taxi.friend.drivers.models.User;
 import com.taxi.friend.drivers.services.CreditService;
 

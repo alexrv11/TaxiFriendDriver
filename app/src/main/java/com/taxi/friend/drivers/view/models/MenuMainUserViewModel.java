@@ -1,7 +1,8 @@
 package com.taxi.friend.drivers.view.models;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.taxi.friend.drivers.models.User;
 
