@@ -13,12 +13,17 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
+
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
 
     <application
@@ -61,6 +66,7 @@
         <activity android:name=".register.DriverLicenseBackActivity" android:configChanges="orientation|screenSize" android:screenOrientation="portrait"/>
         <activity android:name=".register.DriverLicenceFrontActivity" android:configChanges="orientation|screenSize" android:screenOrientation="portrait"/>
         <activity android:name=".register.RegisterWelcomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".register.SignUpConfirm" android:screenOrientation="portrait"/>
         <activity android:name=".barcodereader.BarcodeCaptureActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".register.RegisterDriverAccountActivity"
@@ -73,8 +79,13 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".auth.MySMSBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -82,12 +93,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/files_paths" />
         </provider>
-
-        <receiver android:name=".auth.MySMSBroadcastReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

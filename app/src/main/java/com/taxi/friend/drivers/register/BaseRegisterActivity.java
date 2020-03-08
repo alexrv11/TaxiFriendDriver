@@ -1,6 +1,8 @@
 package com.taxi.friend.drivers.register;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -32,6 +34,8 @@ public class BaseRegisterActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     protected String keyPhoto;
     HashMap<String, RegisterPhotoInfo> photoInfoMap;
+
+    private static final int MY_CAMERA_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +90,12 @@ public class BaseRegisterActivity extends AppCompatActivity {
                 dispatchTakePictureIntent(keyPhoto);
             }
         });
+
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    MY_CAMERA_REQUEST_CODE);
+        }
     }
 
 

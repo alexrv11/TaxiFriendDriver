@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.taxi.friend.drivers.models.DriverInfo;
 
+import com.taxi.friend.drivers.register.ConfirmCodeViewModel;
 import com.taxi.friend.drivers.view.models.MenuMainUserViewModel;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class TaxiGlobalInfo {
     public static HashMap<String, Bitmap> photoBitmap = new HashMap<>();
     public static DriverInfo taxiDriver;
     public static MenuMainUserViewModel mainViewModel;
+    public static ConfirmCodeViewModel codeViewModel;
     public static String DriverId="b6251720-e1a5-4a17-a160-fc630b13cfb8";
 
 

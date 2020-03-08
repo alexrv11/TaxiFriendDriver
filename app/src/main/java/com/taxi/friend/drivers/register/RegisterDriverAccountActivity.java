@@ -3,7 +3,6 @@ package com.taxi.friend.drivers.register;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -21,25 +20,20 @@ import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.taxi.friend.drivers.MainDriverActivity;
 import com.taxi.friend.drivers.R;
-import com.taxi.friend.drivers.TaxiGlobalInfo;
 import com.taxi.friend.drivers.auth.AppHelper;
-import com.taxi.friend.drivers.models.DriverInfo;
-import com.taxi.friend.drivers.models.TaxiDriver;
-import com.taxi.friend.drivers.services.DriverService;
-import com.taxi.friend.drivers.utils.ImageHelper;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RegisterDriverAccountActivity extends AppCompatActivity {
 
     private Button btnNext;
     private ProgressBar progressBar;
     private String userName;
-    private TaxiDriver driver;
+    private String names;
+
     private boolean registerDriverInfo = false;
     private boolean registerDriverAccount = false;
+    private String phone;
+    private String carIdentity;
 
 
     @Override
@@ -89,16 +83,10 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
         }
 
         if(validParameters){
-            String names = editNames.getText().toString();
-            String phone = editPhone.getText().toString();
-            String carIdentity = editCarIdentity.getText().toString();
+            names = editNames.getText().toString();
+            phone = editPhone.getText().toString();
+            carIdentity = editCarIdentity.getText().toString();
             String password = editPassword.getText().toString();
-
-            String carFrontImage = ImageHelper.base64(TaxiGlobalInfo.photoBitmap.get(TaxiGlobalInfo.CAR_FRONT_PHOTO));
-            String carBackImage = ImageHelper.base64(TaxiGlobalInfo.photoBitmap.get(TaxiGlobalInfo.CAR_BACK_PHOTO));
-            String carSideImage = ImageHelper.base64(TaxiGlobalInfo.photoBitmap.get(TaxiGlobalInfo.CAR_SIDE_PHOTO));
-            String licenseFrontImage = ImageHelper.base64(TaxiGlobalInfo.photoBitmap.get(TaxiGlobalInfo.LICENSE_FRONT_PHOTO));
-            String licenseBackImage = ImageHelper.base64(TaxiGlobalInfo.photoBitmap.get(TaxiGlobalInfo.LICENSE_BACK_PHOTO));
 
             userName = phone;
             CognitoUserAttributes userAttributes = new CognitoUserAttributes();
@@ -111,12 +99,6 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
             }
 
 
-            driver = new TaxiDriver(names, carFrontImage, carBackImage, carSideImage, licenseFrontImage, licenseBackImage,
-                    phone, carIdentity, password);
-
-            if(!registerDriverInfo) {
-                registerUserInformation();
-            }
         }
     }
 
@@ -143,45 +125,18 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
             //TextView label = (TextView) findViewById(R.id.textViewRegUserIdMessage);
             //label.setText("Sign up failed");
             //username.setBackground(getDrawable(R.drawable.text_border_error));
-            showDialogMessage("Sign up failed",AppHelper.formatException(exception),false);
+            showDialogMessage("Sign up failed", AppHelper.formatException(exception),false);
         }
     };
-
-    private void registerUserInformation() {
-        DriverService service = new DriverService();
-        Call<DriverInfo> callRequest = service.createDriver(driver);
-
-        try {
-
-            callRequest.enqueue(new Callback<DriverInfo>() {
-                @Override
-                public void onResponse(Call<DriverInfo> call, Response<DriverInfo> response) {
-                    int code = response.code();
-                    if (code != 200) {
-                        String message = "intenta de nuevo crear tu cuenta";
-                        Toast.makeText(RegisterDriverAccountActivity.this, message, Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    registerDriverInfo = true;
-                    TaxiGlobalInfo.taxiDriver = response.body();
-                }
-
-                @Override
-                public void onFailure(Call<DriverInfo> call, Throwable t) {
-                    Log.e("ErrorServer", t.getMessage());
-                }
-            });
-        }catch (Exception e ){
-            Log.e("ErrorCreateDriver", e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
     private void confirmSignUp(CodeDeliveryDetailsType cognitoUserCodeDeliveryDetails) {
         Intent intent = new Intent(this, SignUpConfirm.class);
         intent.putExtra("source","signup");
-        intent.putExtra("name", userName);
+
+        intent.putExtra("name", names);
+        intent.putExtra("userName", userName);
+        intent.putExtra("phone", phone);
+        intent.putExtra("car_identity", carIdentity);
         intent.putExtra("destination", cognitoUserCodeDeliveryDetails.getDestination());
         intent.putExtra("deliveryMed", cognitoUserCodeDeliveryDetails.getDeliveryMedium());
         intent.putExtra("attribute", cognitoUserCodeDeliveryDetails.getAttributeName());

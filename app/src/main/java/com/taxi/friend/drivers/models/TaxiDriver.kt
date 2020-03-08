@@ -40,14 +40,13 @@ class TaxiDriver {
 
     private val phone: String
 
-    private val password: String
 
     private val carIdentity: String
 
     private val credit: Double
 
     constructor(name: String, carFrontPhoto: String, carBackPhoto: String, carSidePhoto: String, licenseFrontPhoto: String,
-                licenseBackPhoto: String, phone: String, carIdentity: String, password: String) {
+                licenseBackPhoto: String, phone: String, carIdentity: String) {
         this.name = name
 
         @JsonProperty("front_car_photo")
@@ -65,7 +64,6 @@ class TaxiDriver {
         @JsonProperty("back_license_photo")
         this.licenseBackPhoto = licenseBackPhoto
         this.phone = phone
-        this.password = password
         @JsonProperty("car_identity")
         this.carIdentity = carIdentity
         this.credit = 0.0

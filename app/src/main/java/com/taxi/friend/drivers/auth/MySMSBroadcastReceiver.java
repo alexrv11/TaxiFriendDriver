@@ -4,10 +4,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsMessage;
+import android.widget.Toast;
+
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.Status;
+import com.taxi.friend.drivers.TaxiGlobalInfo;
+import com.taxi.friend.drivers.register.ConfirmCode;
+import com.taxi.friend.drivers.register.ConfirmCodeViewModel;
 
 /**
  * BroadcastReceiver to wait for SMS messages. This can be registered either
@@ -18,22 +25,38 @@ public class MySMSBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (SmsRetriever.SMS_RETRIEVED_ACTION.equals(intent.getAction())) {
-            Bundle extras = intent.getExtras();
-            Status status = (Status) extras.get(SmsRetriever.EXTRA_STATUS);
 
-            switch(status.getStatusCode()) {
-                case CommonStatusCodes.SUCCESS:
-                    // Get SMS message contents
-                    String message = (String) extras.get(SmsRetriever.EXTRA_SMS_MESSAGE);
-                    // Extract one-time code from the message and complete verification
-                    // by sending the code back to your server.
-                    break;
-                case CommonStatusCodes.TIMEOUT:
-                    // Waiting for SMS timed out (5 minutes)
-                    // Handle the error ...
-                    break;
+        if ("android.provider.Telephony.SMS_RECEIVED".equals(intent.getAction())) {
+            Bundle extras = intent.getExtras();
+            SmsMessage[] smgs = null;
+            String msgFrom = "";
+
+            if (extras != null) {
+                try {
+                    Object[] pdus = (Object[]) extras.get("pdus");
+                    smgs = new SmsMessage[pdus.length];
+                    for (int i = 0; i < pdus.length; i++) {
+                        smgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
+                        //msgFrom = smgs[i].getOriginatingAddress();
+                        String msgBody = smgs[i].getMessageBody();
+                        String code = "";
+                        if (msgBody.contains("Taxifriend tu codigo es ")){
+                            code = msgBody.replace("Taxifriend tu codigo es ", "").trim();
+                            code = code.replace(".", "").trim();
+                            if (!code.isEmpty()) {
+                                TaxiGlobalInfo.codeViewModel.setCode(new ConfirmCode(code));
+                            }
+
+                        }
+                        Toast.makeText(context, ""+ code, Toast.LENGTH_LONG).show();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+
+
         }
     }
 }
