@@ -130,7 +130,7 @@ public class LoadQRCreditActivity extends AppCompatActivity {
                     User user = TaxiGlobalInfo.mainViewModel.getUser().getValue();
                     double total = user.getCredit() + credit.getCredit();
                     user.setCredit(total);
-                    TaxiGlobalInfo.mainViewModel.getUser().setValue(user);
+                    TaxiGlobalInfo.mainViewModel.setUser(user);
 
                     Toast.makeText(LoadQRCreditActivity.this, "La carga fue exitosa", Toast.LENGTH_LONG).show();
                 } else if( response.code() == HttpURLConnection.HTTP_BAD_REQUEST) {

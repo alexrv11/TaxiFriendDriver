@@ -16,6 +16,7 @@
     <color name="registerColor4">#452121</color>
     <color name="backgroundColorStart">#ECCD67</color>
     <color name="backgroundColorEnd">#D3990C</color>
+    <color name="colorTheme">#EBD417</color>
 
     <color name="toolbar_background">#404142</color>
     <color name="toolbar_items">#CBCBCB</color>

@@ -50,7 +50,7 @@ public class DriverService {
             public void onResponse(Call<ResponseWrapper<User>> call, Response<ResponseWrapper<User>> response) {
                 if(response.code() == HttpURLConnection.HTTP_OK){
                     User user = response.body().getResult();
-                    TaxiGlobalInfo.mainViewModel.getUser().setValue(user);
+                    TaxiGlobalInfo.mainViewModel.setUser(user);
                 }
             }
 

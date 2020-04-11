@@ -21,6 +21,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.taxi.friend.drivers.MainDriverActivity;
 import com.taxi.friend.drivers.R;
 import com.taxi.friend.drivers.auth.AppHelper;
+import com.taxi.friend.drivers.utils.PhoneCode;
 
 
 public class RegisterDriverAccountActivity extends AppCompatActivity {
@@ -29,8 +30,6 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private String userName;
     private String names;
-
-    private boolean registerDriverInfo = false;
     private boolean registerDriverAccount = false;
     private String phone;
     private String carIdentity;
@@ -44,14 +43,7 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
         btnNext = findViewById(R.id.btnNext);
         progressBar = findViewById(R.id.progressBar);
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showNextStep();
-            }
-        });
-
-        AppHelper.init(getApplicationContext());
+        btnNext.setOnClickListener(v -> showNextStep());
     }
 
     public void showNextStep() {
@@ -88,13 +80,13 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
             carIdentity = editCarIdentity.getText().toString();
             String password = editPassword.getText().toString();
 
-            userName = phone;
+            userName = PhoneCode.getNumber(phone);
             CognitoUserAttributes userAttributes = new CognitoUserAttributes();
             userAttributes.addAttribute("name", names);
             userAttributes.addAttribute("phone_number",  phone);
             userAttributes.addAttribute("custom:identify_car", carIdentity);
 
-            if(!registerDriverAccount){
+            if (!registerDriverAccount) {
                 AppHelper.getPool().signUpInBackground(phone, password, userAttributes, null, signUpHandler);
             }
 
@@ -146,14 +138,7 @@ public class RegisterDriverAccountActivity extends AppCompatActivity {
     private AlertDialog userDialog;
     private void showDialogMessage(String title, String body, final boolean exit) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title).setMessage(body).setNeutralButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                    userDialog.dismiss();
-
-            }
-        });
+        builder.setTitle(title).setMessage(body).setNeutralButton("OK", (dialog, which) -> userDialog.dismiss());
         userDialog = builder.create();
         userDialog.show();
     }

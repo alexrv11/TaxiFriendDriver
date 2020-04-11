@@ -18,18 +18,13 @@
 package com.taxi.friend.drivers.register;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -44,7 +39,6 @@ import com.taxi.friend.drivers.MainDriverActivity;
 import com.taxi.friend.drivers.R;
 import com.taxi.friend.drivers.TaxiGlobalInfo;
 import com.taxi.friend.drivers.auth.AppHelper;
-import com.taxi.friend.drivers.models.TaxiDriver;
 import com.taxi.friend.drivers.services.AuthService;
 
 
@@ -54,7 +48,6 @@ public class SignUpConfirm extends AppCompatActivity {
     private EditText reqCode;
     private String userName;
     private String name;
-    private AlertDialog userDialog;
     private String phone;
     private String carIdentity;
 

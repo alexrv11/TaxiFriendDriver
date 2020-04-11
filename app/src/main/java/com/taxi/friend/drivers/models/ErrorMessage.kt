@@ -1,3 +1,3 @@
 package com.taxi.friend.drivers.models
 
-class ErrorMessage(var message: String?)
+data class ErrorMessage(var message: String = "")

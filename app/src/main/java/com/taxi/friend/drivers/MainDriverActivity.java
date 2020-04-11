@@ -141,7 +141,7 @@ public class MainDriverActivity extends AppCompatActivity
         TaxiGlobalInfo.mainViewModel = ViewModelProviders.of(this).get(MenuMainUserViewModel.class);
         DriverService driverService = new DriverService();
         driverService.getDriver(TaxiGlobalInfo.DriverId);
-        TaxiGlobalInfo.mainViewModel = new MenuMainUserViewModel( new MutableLiveData<User>());
+        TaxiGlobalInfo.mainViewModel = new MenuMainUserViewModel();
         TaxiGlobalInfo.mainViewModel.getUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
