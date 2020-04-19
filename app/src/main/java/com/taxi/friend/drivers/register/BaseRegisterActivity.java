@@ -78,18 +78,8 @@ public class BaseRegisterActivity extends AppCompatActivity {
             image.setImageBitmap(TaxiGlobalInfo.photoBitmap.get(this.keyPhoto));
         }
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showNextStep(nextClass);
-            }
-        });
-        btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                dispatchTakePictureIntent(keyPhoto);
-            }
-        });
+        btnNext.setOnClickListener(v -> showNextStep(nextClass));
+        btnCamera.setOnClickListener(v -> dispatchTakePictureIntent(keyPhoto));
 
         if (checkSelfPermission(Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {

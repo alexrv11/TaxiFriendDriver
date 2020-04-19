@@ -69,12 +69,6 @@ public class SignUpConfirm extends AppCompatActivity {
         carIdentity = getIntent().getStringExtra("car_identity");
 
 
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.RECEIVE_SMS)
-        != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.RECEIVE_SMS}, 1000);
-        }
-
         TaxiGlobalInfo.codeViewModel = ViewModelProviders.of(this).get(ConfirmCodeViewModel.class);
         TaxiGlobalInfo.codeViewModel.getCode().observe(this, code -> reqCode.setText(code.getCode()));
 
@@ -106,19 +100,6 @@ public class SignUpConfirm extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if(requestCode == 1000) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Ya estamos terminando..", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "Necesitamos permisos para terminar el registro", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
     }
 
     GenericHandler confHandler = new GenericHandler() {
